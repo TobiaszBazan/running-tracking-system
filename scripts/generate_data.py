@@ -1,5 +1,6 @@
 import random
 from datetime import date, timedelta
+from pathlib import Path
 
 random.seed(42)
 
@@ -16,7 +17,7 @@ RUNNER_ACHIEVEMENTS_COUNT = 5000
 TELEMETRY_POINTS_MIN = 20
 TELEMETRY_POINTS_MAX = 40
 
-OUTPUT_FILE = "generated_data.sql"
+OUTPUT_FILE = Path(__file__).resolve().parents[1] / "sql" / "data" / "generated_data.sql"
 
 # =========================
 # HELPERS
@@ -91,6 +92,8 @@ activity_info = []  # (activity_id, runner_id, route_id, activity_date, avg_bpm)
 # =========================
 # GENERATE SQL
 # =========================
+OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+
 with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
 
     # Optional cleanup order
